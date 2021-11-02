@@ -11,15 +11,17 @@ import Login from './Login/Login';
 import Home from './Home/Home';
 import PostDetail from './Posts/PostDetail';
 import { Layout } from 'antd';
+import { useState } from 'react';
 
 const { Header, Content, Footer } = Layout;
 
 function App() {
+  const [user,setUser]=useState({userId:localStorage.getItem('ID'),email:localStorage.getItem('EMAIL')})
   return (
     <Layout className="layout App">
       <Router>
         <Header style={{ position: 'fixed', zIndex: 1, width: '100%' }}>
-          <Nav />
+          <Nav user={user}/>
         </Header>
 
         <Content className="site-layout" style={{ padding: '0 50px', marginTop: 64 }}>
@@ -33,11 +35,11 @@ function App() {
             <Route path="/posts/:id" >
               <PostDetail />
             </Route>
-            <Route path="/profile">
-              <Profile />
+            <Route path="/profile" >
+              <Profile user={user} setUser={setUser}/>
             </Route>
-            <Route path="/login">
-              <Login />
+            <Route path="/login" >
+              <Login user={user} setUser={setUser}/>
             </Route>
 
           </Switch>
